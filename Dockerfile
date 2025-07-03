@@ -19,7 +19,7 @@ RUN set -ex && \
 
 RUN set -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
   apt-get update -y && \
-  apt-get install -y file curl wget openssh-server ssh git tree lua5.3
+  apt-get install -y file curl wget openssh-server ssh git tree lua5.3 cmake gcc
 
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
   echo "root:root" | chpasswd && \
