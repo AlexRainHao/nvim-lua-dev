@@ -1,0 +1,11 @@
+services:
+  vim-lua-dev:
+    image: vim-lua-dev
+    container_name: vim-lua-dev
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "2222:22"
+    volumes:
+      - ./install.sh:/home/install.sh
