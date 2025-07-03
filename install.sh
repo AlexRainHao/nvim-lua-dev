@@ -19,11 +19,16 @@ function echowarn() {
 }
 
 function install_neovim() {
-  _version="v0.9.4"
+  _version="v0.11.0"
+
+  if printf '%s\n%s\n' "${_version#v}" "0.10.4" | sort -VC; then
+    curl -s -L https://github.com/neovim/neovim/releases/download/${_version}/nvim-linux64.tar.gz | tar zxvf -
+  else
+    curl -s -L https://github.com/neovim/neovim/releases/download/${_version}/nvim-linux-x86_64.tar.gz | tar zxvf -
+  fi
 
   echoinfo "prepare downloading nvim $_version ..."
 
-  curl -s -L https://github.com/neovim/neovim/releases/download/${_version}/nvim-linux64.tar.gz | tar zxvf -
 
   if [[ $? != 0 ]]; then
     echoerr "download nvim ${_version} failed"
