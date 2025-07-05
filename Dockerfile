@@ -19,7 +19,10 @@ RUN set -ex && \
 
 RUN set -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
   apt-get update -y && \
-  apt-get install -y file curl wget openssh-server ssh git tree lua5.3 cmake gcc
+  apt-get install -y file curl wget openssh-server ssh git tree lua5.3 cmake make gcc && \
+  apt-get isntall -y luarocks liblua5.3-dev sqlite3 sqlite-devel
+
+RUN luarocks install sqlite
 
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
   echo "root:root" | chpasswd && \
