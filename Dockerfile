@@ -22,7 +22,7 @@ RUN set -ex && \
 RUN set -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources && \
   apt-get update -y && \
   apt-get install -y file curl wget openssh-server ssh git tree lua5.3 cmake make gcc nodejs npm python3 python3-pip && \
-  apt-get isntall -y luarocks liblua5.3-dev sqlite3 libsqlite3-dev
+  apt-get isntall -y luarocks liblua5.3-dev sqlite3 libsqlite3-dev python3.11-venv
 
 RUN luarocks install sqlite
 
