@@ -84,6 +84,31 @@ function install_fzf() {
     ~/.fzf/install || echoerr "download fzf failed"
 }
 
+function install_yazi() {
+  git clone https://github.com/sxyazi/yazi.git && \
+    cd yazi && \
+    cargo build --release --locked && \
+    mv target/release/yazi target/release/ya /usr/local/bin/
+  
+  if [[ $? != 0 ]]; then
+    echoerr "download and build yazi failed"
+  else
+    rm -rf yazi
+  fi
+
+  apt install -y ffmpeg 7zip jq poppler-utils
+
+  git clone https://github.com/linebender/resvg.git && \
+      cd resvg && cargo build --release --locked && \
+      mv target/release/resvg /usr/local/bin
+
+  if [[ $? != 0 ]]; then
+      echowarn "download and build  `resvg` failed"
+  fi
+
+  # TODO: test `xclip` for linux-based clipboard support
+}
+
 function source_() {
   cd $BASE_HOME
   
@@ -106,6 +131,14 @@ export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git --exclude node_m
 export FZF_DEFAULT_OPTS="--no-mouse --height 70% -1 --reverse --multi --inline-info --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (batcat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
 EOF
 
+  cat >> ~/.bashrc<< EOF
+# ===========================
+# yazi
+# ===========================
+export EDITOR=nvim
+alias ya='yazi'
+EOF
+
   source ~/.bashrc
 }
 
@@ -118,7 +151,8 @@ function install() {
     install_fd && \
     install_ripgrep && \
     install_batcat && \
-    install_fzf
+    install_fzf && \
+    install_yazi
   else
     while [[ $# -gt 0 ]]; do
       case $1 in
@@ -144,6 +178,10 @@ function install() {
           ;;
         "fzf")
           install_fzf
+          shift
+          ;;
+        "yazi")
+          install_yazi
           shift
           ;;
         *)
