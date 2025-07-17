@@ -37,6 +37,8 @@ RUN npm config set registry ${NPMMIRROR} && \
   pip config set global.index-url ${PIPMIRROR} && \
   pip config set global.break-system-packages true
 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
 EXPOSE 22
 
 VOLUME [ "install.sh" ]
