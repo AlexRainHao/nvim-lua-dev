@@ -104,6 +104,8 @@ function install_yazi() {
 
   if [[ $? != 0 ]]; then
       echowarn "download and build  `resvg` failed"
+  else
+      rm -rf resvg
   fi
 
   # TODO: test `xclip` for linux-based clipboard support
