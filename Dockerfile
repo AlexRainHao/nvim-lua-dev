@@ -37,7 +37,14 @@ RUN npm config set registry ${NPMMIRROR} && \
   pip config set global.index-url ${PIPMIRROR} && \
   pip config set global.break-system-packages true
 
+# rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# golang
+RUN curl -sL https://go.dev/dl/go1.24.5.linux-amd64.tar.gz | tar -C /usr/local -zxvf - && \
+  echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc && \
+  echo "export GOPROXY=https://goproxy.cn,direct" >> ~/.bashrc && \
+  /usr/local/go/bin/go env -w GO111MODULE=on
 
 EXPOSE 22
 
