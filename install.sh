@@ -88,7 +88,8 @@ function install_yazi() {
   git clone https://github.com/sxyazi/yazi.git && \
     cd yazi && \
     cargo build --release --locked && \
-    mv target/release/yazi target/release/ya /usr/local/bin/
+    mv target/release/yazi target/release/ya /usr/local/bin/ && \
+    cd -
   
   if [[ $? != 0 ]]; then
     echoerr "download and build yazi failed"
@@ -100,7 +101,8 @@ function install_yazi() {
 
   git clone https://github.com/linebender/resvg.git && \
       cd resvg && cargo build --release --locked && \
-      mv target/release/resvg /usr/local/bin
+      mv target/release/resvg /usr/local/bin && \
+      cd -
 
   if [[ $? != 0 ]]; then
       echowarn "download and build  `resvg` failed"
