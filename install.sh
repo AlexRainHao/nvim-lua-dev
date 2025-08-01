@@ -140,7 +140,7 @@ EOF
 # yazi
 # ===========================
 export EDITOR=nvim
-alias ya='yazi'
+alias rr='yazi'
 EOF
 
   source ~/.bashrc
